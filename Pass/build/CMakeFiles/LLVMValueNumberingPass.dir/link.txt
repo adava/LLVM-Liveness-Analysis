@@ -1,0 +1,1 @@
+/usr/bin/clang++ -fPIC -fno-rtti -fPIC -O3 -DNDEBUG  -shared  -o libLLVMValueNumberingPass.so CMakeFiles/LLVMValueNumberingPass.dir/ValueNumbering.cpp.o 

@@ -1,0 +1,4 @@
+/home/sina/Desktop/llvm-cs202/Liveness/Pass/build/CMakeFiles/rebuild_cache.dir
+/home/sina/Desktop/llvm-cs202/Liveness/Pass/build/CMakeFiles/edit_cache.dir
+/home/sina/Desktop/llvm-cs202/Liveness/Pass/build/CMakeFiles/intrinsics_gen.dir
+/home/sina/Desktop/llvm-cs202/Liveness/Pass/build/CMakeFiles/Liveness.dir

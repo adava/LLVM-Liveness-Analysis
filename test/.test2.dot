@@ -1,0 +1,26 @@
+digraph "CFG for 'test2' function" {
+	label="CFG for 'test2' function";
+
+	Node0x5563f62ca480 [shape=record,label="{entry:\l  br label %while.cond\l}"];
+	Node0x5563f62ca480 -> Node0x5563f63050a0;
+	Node0x5563f63050a0 [shape=record,label="{while.cond:                                       \l  %i.addr.0 = phi i32 [ %i, %entry ], [ %add7, %if.end5 ]\l  %d.addr.0 = phi i32 [ %d, %entry ], [ %d.addr.2, %if.end5 ]\l  %c.addr.0 = phi i32 [ %c, %entry ], [ %c.addr.2, %if.end5 ]\l  %cmp = icmp slt i32 %i.addr.0, 100\l  br i1 %cmp, label %while.body, label %while.end\l|{<s0>T|<s1>F}}"];
+	Node0x5563f63050a0:s0 -> Node0x5563f6305d60;
+	Node0x5563f63050a0:s1 -> Node0x5563f6305fe0;
+	Node0x5563f6305d60 [shape=record,label="{while.body:                                       \l  %cmp1 = icmp sgt i32 %c.addr.0, 20\l  br i1 %cmp1, label %if.then, label %if.else4\l|{<s0>T|<s1>F}}"];
+	Node0x5563f6305d60:s0 -> Node0x5563f6306180;
+	Node0x5563f6305d60:s1 -> Node0x5563f63061f0;
+	Node0x5563f6306180 [shape=record,label="{if.then:                                          \l  %cmp2 = icmp slt i32 %d.addr.0, 100\l  br i1 %cmp2, label %if.then3, label %if.else\l|{<s0>T|<s1>F}}"];
+	Node0x5563f6306180:s0 -> Node0x5563f6306360;
+	Node0x5563f6306180:s1 -> Node0x5563f63063e0;
+	Node0x5563f6306360 [shape=record,label="{if.then3:                                         \l  br label %if.end\l}"];
+	Node0x5563f6306360 -> Node0x5563f63064b0;
+	Node0x5563f63063e0 [shape=record,label="{if.else:                                          \l  br label %if.end\l}"];
+	Node0x5563f63063e0 -> Node0x5563f63064b0;
+	Node0x5563f63064b0 [shape=record,label="{if.end:                                           \l  %d.addr.1 = phi i32 [ 101, %if.then3 ], [ %d.addr.0, %if.else ]\l  %c.addr.1 = phi i32 [ %c.addr.0, %if.then3 ], [ 12000, %if.else ]\l  br label %if.end5\l}"];
+	Node0x5563f63064b0 -> Node0x5563f63051d0;
+	Node0x5563f63061f0 [shape=record,label="{if.else4:                                         \l  br label %if.end5\l}"];
+	Node0x5563f63061f0 -> Node0x5563f63051d0;
+	Node0x5563f63051d0 [shape=record,label="{if.end5:                                          \l  %d.addr.2 = phi i32 [ %d.addr.1, %if.end ], [ 2200, %if.else4 ]\l  %c.addr.2 = phi i32 [ %c.addr.1, %if.end ], [ 2544, %if.else4 ]\l  %b.addr.0 = phi i32 [ 510, %if.end ], [ 231, %if.else4 ]\l  %a.addr.0 = phi i32 [ 200, %if.end ], [ 210, %if.else4 ]\l  %add = add nsw i32 %a.addr.0, %b.addr.0\l  %add6 = add nsw i32 %c.addr.2, %d.addr.2\l  %add7 = add nsw i32 %i.addr.0, 1\l  br label %while.cond\l}"];
+	Node0x5563f63051d0 -> Node0x5563f63050a0;
+	Node0x5563f6305fe0 [shape=record,label="{while.end:                                        \l  ret void\l}"];
+}

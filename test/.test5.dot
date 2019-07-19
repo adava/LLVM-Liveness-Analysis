@@ -1,0 +1,12 @@
+digraph "CFG for 'test5' function" {
+	label="CFG for 'test5' function";
+
+	Node0x55e026fb9f90 [shape=record,label="{entry:\l  %mul = mul nsw i32 %N, 2\l  %cmp = icmp slt i32 %a, %mul\l  br i1 %cmp, label %if.then, label %if.else\l|{<s0>T|<s1>F}}"];
+	Node0x55e026fb9f90:s0 -> Node0x55e026fbabe0;
+	Node0x55e026fb9f90:s1 -> Node0x55e026fbac50;
+	Node0x55e026fbabe0 [shape=record,label="{if.then:                                          \l  %add = add nsw i32 2, 2\l  br label %if.end\l}"];
+	Node0x55e026fbabe0 -> Node0x55e026fbad50;
+	Node0x55e026fbac50 [shape=record,label="{if.else:                                          \l  %mul1 = mul nsw i32 2, 2\l  br label %if.end\l}"];
+	Node0x55e026fbac50 -> Node0x55e026fbad50;
+	Node0x55e026fbad50 [shape=record,label="{if.end:                                           \l  ret void\l}"];
+}

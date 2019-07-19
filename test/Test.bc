@@ -1,0 +1,192 @@
+; ModuleID = 'Test.ll'
+source_filename = "Test.c"
+target datalayout = "e-m:e-i64:64-f80:128-n8:16:32:64-S128"
+target triple = "x86_64-unknown-linux-gnu"
+
+; Function Attrs: noinline nounwind uwtable
+define dso_local void @test1(i32 %a, i32 %b, i32 %c, i32 %d, i32 %e, i32 %f) #0 {
+entry:
+  %add = add nsw i32 %c, 11
+  %mul = mul nsw i32 %f, %e
+  br label %while.cond
+
+while.cond:                                       ; preds = %if.end, %entry
+  %b.addr.0 = phi i32 [ %mul, %entry ], [ %b.addr.1, %if.end ]
+  %a.addr.0 = phi i32 [ %add, %entry ], [ %mul1, %if.end ]
+  %cmp = icmp slt i32 %a.addr.0, %b.addr.0
+  br i1 %cmp, label %while.body, label %while.end
+
+while.body:                                       ; preds = %while.cond
+  %mul1 = mul nsw i32 %b.addr.0, %c
+  %cmp2 = icmp sgt i32 %b.addr.0, %c
+  br i1 %cmp2, label %if.then, label %if.else
+
+if.then:                                          ; preds = %while.body
+  %add3 = add nsw i32 %b.addr.0, 1
+  br label %if.end
+
+if.else:                                          ; preds = %while.body
+  %mul4 = mul nsw i32 %b.addr.0, %c
+  br label %if.end
+
+if.end:                                           ; preds = %if.else, %if.then
+  %b.addr.1 = phi i32 [ %add3, %if.then ], [ %b.addr.0, %if.else ]
+  %mul5 = mul nsw i32 %b.addr.1, %c
+  br label %while.cond
+
+while.end:                                        ; preds = %while.cond
+  ret void
+}
+
+; Function Attrs: noinline nounwind uwtable
+define dso_local void @test2(i32 %a, i32 %b, i32 %c, i32 %d, i32 %i) #0 {
+entry:
+  br label %while.cond
+
+while.cond:                                       ; preds = %if.end5, %entry
+  %i.addr.0 = phi i32 [ %i, %entry ], [ %add7, %if.end5 ]
+  %d.addr.0 = phi i32 [ %d, %entry ], [ %d.addr.2, %if.end5 ]
+  %c.addr.0 = phi i32 [ %c, %entry ], [ %c.addr.2, %if.end5 ]
+  %cmp = icmp slt i32 %i.addr.0, 100
+  br i1 %cmp, label %while.body, label %while.end
+
+while.body:                                       ; preds = %while.cond
+  %cmp1 = icmp sgt i32 %c.addr.0, 20
+  br i1 %cmp1, label %if.then, label %if.else4
+
+if.then:                                          ; preds = %while.body
+  %cmp2 = icmp slt i32 %d.addr.0, 100
+  br i1 %cmp2, label %if.then3, label %if.else
+
+if.then3:                                         ; preds = %if.then
+  br label %if.end
+
+if.else:                                          ; preds = %if.then
+  br label %if.end
+
+if.end:                                           ; preds = %if.else, %if.then3
+  %d.addr.1 = phi i32 [ 101, %if.then3 ], [ %d.addr.0, %if.else ]
+  %c.addr.1 = phi i32 [ %c.addr.0, %if.then3 ], [ 12000, %if.else ]
+  br label %if.end5
+
+if.else4:                                         ; preds = %while.body
+  br label %if.end5
+
+if.end5:                                          ; preds = %if.else4, %if.end
+  %d.addr.2 = phi i32 [ %d.addr.1, %if.end ], [ 2200, %if.else4 ]
+  %c.addr.2 = phi i32 [ %c.addr.1, %if.end ], [ 2544, %if.else4 ]
+  %b.addr.0 = phi i32 [ 510, %if.end ], [ 231, %if.else4 ]
+  %a.addr.0 = phi i32 [ 200, %if.end ], [ 210, %if.else4 ]
+  %add = add nsw i32 %a.addr.0, %b.addr.0
+  %add6 = add nsw i32 %c.addr.2, %d.addr.2
+  %add7 = add nsw i32 %i.addr.0, 1
+  br label %while.cond
+
+while.end:                                        ; preds = %while.cond
+  ret void
+}
+
+; Function Attrs: noinline nounwind uwtable
+define dso_local void @test3(i32 %a, i32 %b, i32 %d) #0 {
+entry:
+  %add = add nsw i32 %a, %b
+  br label %do.body
+
+do.body:                                          ; preds = %do.cond, %entry
+  %d.addr.0 = phi i32 [ %d, %entry ], [ %add1, %do.cond ]
+  %e.0 = phi i32 [ %add, %entry ], [ %sub, %do.cond ]
+  %add1 = add nsw i32 %d.addr.0, %b
+  %sub = sub nsw i32 %e.0, 1
+  br label %do.cond
+
+do.cond:                                          ; preds = %do.body
+  %cmp = icmp sgt i32 %sub, 0
+  br i1 %cmp, label %do.body, label %do.end
+
+do.end:                                           ; preds = %do.cond
+  %inc = add nsw i32 %add1, 1
+  ret void
+}
+
+; Function Attrs: noinline nounwind uwtable
+define dso_local void @test4(i32 %N, i32 %p, i32 %sum) #0 {
+entry:
+  br label %while.cond
+
+while.cond:                                       ; preds = %if.end, %entry
+  %sum.addr.0 = phi i32 [ %sum, %entry ], [ %add, %if.end ]
+  %p.addr.0 = phi i32 [ %p, %entry ], [ %p.addr.1, %if.end ]
+  %i.0 = phi i32 [ 0, %entry ], [ %inc2, %if.end ]
+  %cmp = icmp slt i32 %i.0, %N
+  br i1 %cmp, label %while.body, label %while.end
+
+while.body:                                       ; preds = %while.cond
+  %add = add nsw i32 %sum.addr.0, %p.addr.0
+  %cmp1 = icmp sgt i32 %i.0, 3
+  br i1 %cmp1, label %if.then, label %if.else
+
+if.then:                                          ; preds = %while.body
+  br label %if.end
+
+if.else:                                          ; preds = %while.body
+  %inc = add nsw i32 %p.addr.0, 1
+  br label %if.end
+
+if.end:                                           ; preds = %if.else, %if.then
+  %p.addr.1 = phi i32 [ 0, %if.then ], [ %inc, %if.else ]
+  %inc2 = add nsw i32 %i.0, 1
+  br label %while.cond
+
+while.end:                                        ; preds = %while.cond
+  ret void
+}
+
+; Function Attrs: noinline nounwind uwtable
+define dso_local void @test5(i32 %a, i32 %b, i32 %x, i32 %y, i32 %N) #0 {
+entry:
+  %mul = mul nsw i32 %N, 2
+  %cmp = icmp slt i32 %a, %mul
+  br i1 %cmp, label %if.then, label %if.else
+
+if.then:                                          ; preds = %entry
+  %add = add nsw i32 2, 2
+  br label %if.end
+
+if.else:                                          ; preds = %entry
+  %mul1 = mul nsw i32 2, 2
+  br label %if.end
+
+if.end:                                           ; preds = %if.else, %if.then
+  %x.addr.0 = phi i32 [ 5, %if.then ], [ 8, %if.else ]
+  br label %while.cond
+
+while.cond:                                       ; preds = %while.body, %if.end
+  %k.0 = phi i32 [ 4, %if.end ], [ %inc, %while.body ]
+  %x.addr.1 = phi i32 [ %x.addr.0, %if.end ], [ %add3, %while.body ]
+  %cmp2 = icmp slt i32 %k.0, %N
+  br i1 %cmp2, label %while.body, label %while.end
+
+while.body:                                       ; preds = %while.cond
+  %add3 = add nsw i32 4, %k.0
+  %mul4 = mul nsw i32 4, 2
+  %inc = add nsw i32 %k.0, 1
+  br label %while.cond
+
+while.end:                                        ; preds = %while.cond
+  %add5 = add nsw i32 4, %x.addr.1
+  ret void
+}
+
+; Function Attrs: noinline nounwind uwtable
+define dso_local i32 @main(i32 %argc, i8** %argv) #0 {
+entry:
+  ret i32 0
+}
+
+attributes #0 = { noinline nounwind uwtable "correctly-rounded-divide-sqrt-fp-math"="false" "disable-tail-calls"="false" "less-precise-fpmad"="false" "min-legal-vector-width"="0" "no-frame-pointer-elim"="true" "no-frame-pointer-elim-non-leaf" "no-infs-fp-math"="false" "no-jump-tables"="false" "no-nans-fp-math"="false" "no-signed-zeros-fp-math"="false" "no-trapping-math"="false" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+fxsr,+mmx,+sse,+sse2,+x87" "unsafe-fp-math"="false" "use-soft-float"="false" }
+
+!llvm.module.flags = !{!0}
+!llvm.ident = !{!1}
+
+!0 = !{i32 1, !"wchar_size", i32 4}
+!1 = !{!"clang version 9.0.0 (trunk 351520)"}

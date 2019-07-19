@@ -1,0 +1,1 @@
+/usr/bin/clang++ -fPIC -fno-rtti -fPIC -O3 -DNDEBUG  -shared  -o libLiveness.so CMakeFiles/Liveness.dir/Liveness.cpp.o 

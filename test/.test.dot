@@ -1,0 +1,5 @@
+digraph "CFG for 'test' function" {
+	label="CFG for 'test' function";
+
+	Node0x55e026f7d480 [shape=record,label="{entry:\l  %add = add nsw i32 %b, %c\l  %sub = sub nsw i32 %add, %d\l  %add1 = add nsw i32 %sub, %c\l  %sub2 = sub nsw i32 %add, %d\l  %mul = mul nsw i32 %e, 5\l  %add3 = add nsw i32 %sub2, %mul\l  ret void\l}"];
+}

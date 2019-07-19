@@ -1,0 +1,19 @@
+digraph "CFG for 'test1' function" {
+	label="CFG for 'test1' function";
+
+	Node0x55e026fb8de0 [shape=record,label="{entry:\l  %add = add nsw i32 %c, 11\l  %mul = mul nsw i32 %f, %e\l  br label %while.cond\l}"];
+	Node0x55e026fb8de0 -> Node0x55e026fb9270;
+	Node0x55e026fb9270 [shape=record,label="{while.cond:                                       \l  %b.addr.0 = phi i32 [ %mul, %entry ], [ %b.addr.1, %if.end ]\l  %a.addr.0 = phi i32 [ %add, %entry ], [ %mul1, %if.end ]\l  %cmp = icmp slt i32 %a.addr.0, %b.addr.0\l  br i1 %cmp, label %while.body, label %while.end\l|{<s0>T|<s1>F}}"];
+	Node0x55e026fb9270:s0 -> Node0x55e026fb9900;
+	Node0x55e026fb9270:s1 -> Node0x55e026fb99e0;
+	Node0x55e026fb9900 [shape=record,label="{while.body:                                       \l  %mul1 = mul nsw i32 %b.addr.0, %c\l  %cmp2 = icmp sgt i32 %b.addr.0, %c\l  br i1 %cmp2, label %if.then, label %if.else\l|{<s0>T|<s1>F}}"];
+	Node0x55e026fb9900:s0 -> Node0x55e026fb9bc0;
+	Node0x55e026fb9900:s1 -> Node0x55e026fb9c30;
+	Node0x55e026fb9bc0 [shape=record,label="{if.then:                                          \l  %add3 = add nsw i32 %b.addr.0, 1\l  br label %if.end\l}"];
+	Node0x55e026fb9bc0 -> Node0x55e026fb93b0;
+	Node0x55e026fb9c30 [shape=record,label="{if.else:                                          \l  %mul4 = mul nsw i32 %b.addr.0, %c\l  br label %if.end\l}"];
+	Node0x55e026fb9c30 -> Node0x55e026fb93b0;
+	Node0x55e026fb93b0 [shape=record,label="{if.end:                                           \l  %b.addr.1 = phi i32 [ %add3, %if.then ], [ %b.addr.0, %if.else ]\l  %mul5 = mul nsw i32 %b.addr.1, %c\l  br label %while.cond\l}"];
+	Node0x55e026fb93b0 -> Node0x55e026fb9270;
+	Node0x55e026fb99e0 [shape=record,label="{while.end:                                        \l  ret void\l}"];
+}
